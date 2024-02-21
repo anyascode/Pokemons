@@ -1,5 +1,6 @@
 import { createStore } from "vuex";
 import axios from "axios";
+import { yesOrNo } from "@/store/yesorno";
 
 const store = createStore({
   state() {
@@ -8,8 +9,6 @@ const store = createStore({
       totalCount: 0,
       loading: true,
       abilities: [],
-      answer: "",
-      image: "",
     };
   },
   mutations: {
@@ -27,12 +26,6 @@ const store = createStore({
     },
     addPokemon(state, pokemon) {
       state.pokemons.unshift(pokemon);
-    },
-    setAnswer(state, answer) {
-      state.answer = answer;
-    },
-    setImage(state, image) {
-      state.image = image;
     },
   },
   actions: {
@@ -92,19 +85,9 @@ const store = createStore({
           console.warn(error);
         });
     },
-    getAnswer({ commit }) {
-      commit("setLoading", true);
-      return axios
-        .get("https://yesno.wtf/api")
-        .then((response) => {
-          commit("setAnswer", response.data.answer);
-          commit("setImage", response.data.image);
-          commit("setLoading", false);
-        })
-        .catch((error) => {
-          console.warn(error);
-        });
-    },
+  },
+  modules: {
+    yesOrNo,
   },
 });
 

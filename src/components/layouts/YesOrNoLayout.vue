@@ -1,22 +1,24 @@
 <template>
   <el-main>
-    <h1>Ask a question to get yes or no answer</h1>
-    <el-row :gutter="20" justify="space-between">
-      <el-col :span="20">
+    <h1 class="title">Ask a question to get yes or no answer</h1>
+    <el-row :gutter="20" justify="center">
+      <el-col :span="7"></el-col>
+      <el-col :span="10">
         <el-input
           v-model="input"
           type="text"
           placeholder="Type here..."
+          minlength="2"
           maxlength="100"
           show-word-limit
           clearable
-      /></el-col>
-      <el-col :span="4">
+        />
         <div class="questionInput">
-          <el-button type="primary" @click="getAnswer()">Yes or no?</el-button>
+          <el-button type="primary" @click="getAnswer">Ask</el-button>
           <el-button @click="clearText">Clear</el-button>
-        </div>
-      </el-col>
+        </div></el-col
+      >
+      <el-col :span="7"></el-col>
     </el-row>
     <el-row justify="center" v-loading="loading">
       <el-col :span="8"></el-col>
@@ -45,9 +47,9 @@ export default {
   },
   computed: {
     ...mapState({
-      loading: (state) => state.loading,
-      answer: (state) => state.answer,
-      image: (state) => state.image,
+      loading: (state) => state.yesOrNo.loading,
+      answer: (state) => state.yesOrNo.answer,
+      image: (state) => state.yesOrNo.image,
     }),
   },
 };
@@ -56,12 +58,16 @@ export default {
 .questionInput {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
+  margin-top: 1rem;
 }
 .answer {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  text-align: center;
+}
+.title {
   text-align: center;
 }
 </style>
